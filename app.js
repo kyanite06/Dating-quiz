@@ -102,6 +102,44 @@ class DatingQuizApp {
                 this.totalQuestions++;
             }
         }
+        // Handle next property (for sequential questions)
+        else if (question.next) {
+            const nextId = question.next;
+            let nextQuestion = null;
+
+            // Look for next question in all sections
+            if (nextId === 'q1') {
+                nextQuestion = QUESTIONS.start[0];
+            } else if (nextId.startsWith('q') && !nextId.includes('_')) {
+                // It's a start question (q2, q3, q4)
+                nextQuestion = QUESTIONS.start.find(q => q.id === nextId);
+            } else if (nextId.startsWith('q') && nextId.includes('_')) {
+                // It's a branch question
+                nextQuestion = QUESTIONS.branches[nextId];
+            } else if (nextId === 'adaptive') {
+                // Add adaptive questions
+                this.addAdaptiveQuestions();
+            } else if (nextId === 'final_questions') {
+                // Add final questions
+                QUESTIONS.final.forEach(q => {
+                    if (!this.askedQuestions.has(q.id)) {
+                        this.questionQueue.push(q);
+                    }
+                });
+            } else {
+                // Try to find in core questions
+                nextQuestion = QUESTIONS.core.find(q => q.id === nextId);
+            }
+
+            // If we found a next question and haven't asked it, add it to queue
+            if (nextQuestion && !this.askedQuestions.has(nextQuestion.id)) {
+                // Check if it's already in the queue ahead
+                const alreadyInQueue = this.questionQueue.slice(this.currentQuestionIndex + 1).some(q => q.id === nextQuestion.id);
+                if (!alreadyInQueue) {
+                    this.questionQueue.splice(this.currentQuestionIndex + 1, 0, nextQuestion);
+                }
+            }
+        }
 
         // Move to next question
         this.nextQuestion();

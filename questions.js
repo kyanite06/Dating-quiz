@@ -166,8 +166,7 @@ const QUESTIONS = {
                 { text: 'Not actually compatible with my life', value: 'incompatible', scores: { fantasy_over_reality: 1 } },
                 { text: 'They don\'t match my values', value: 'values_mismatch', scores: { values_clarity: -1 } },
                 { text: 'Exciting but unstable', value: 'unstable', scores: { chaos_attraction: 2 } }
-            ],
-            next: 'q5'
+            ]
         },
 
         q_confused_1: {
@@ -180,8 +179,7 @@ const QUESTIONS = {
                 { text: 'What I thought I wanted didn\'t make me happy', value: 'misaligned', scores: { self_awareness: 2 } },
                 { text: 'Too many options/conflicting advice', value: 'overwhelmed', scores: { decision_paralysis: 1 } },
                 { text: 'I never really knew, just went along', value: 'never_knew', scores: { self_knowledge: -2 } }
-            ],
-            next: 'q5'
+            ]
         },
 
         q_strategic_1: {
@@ -194,8 +192,7 @@ const QUESTIONS = {
                 { text: 'Not wasting time on wrong matches', value: 'efficiency', scores: { pragmatic: 2 } },
                 { text: 'Better at reading red flags', value: 'discernment', scores: { awareness: 2 } },
                 { text: 'Finding quality over quantity', value: 'quality', scores: { intentionality: 2 } }
-            ],
-            next: 'q5'
+            ]
         },
 
         q_patterns_1: {
@@ -208,8 +205,7 @@ const QUESTIONS = {
                 { text: 'Why relationships end the same way', value: 'endings', scores: { pattern_recognition: 2 } },
                 { text: 'What I avoid in dating', value: 'avoidance', scores: { avoidance: 1 } },
                 { text: 'How I pick partners', value: 'selection', scores: { decision_making: 1 } }
-            ],
-            next: 'q5'
+            ]
         },
 
         q_external_1: {
@@ -221,8 +217,7 @@ const QUESTIONS = {
                 { text: 'Worth exploring, I guess', value: 'open', scores: { openness: 1 } },
                 { text: 'Skeptical but here anyway', value: 'skeptical', scores: { resistance: 1 } },
                 { text: 'Actually, I\'m curious too', value: 'curious', scores: { self_awareness: 2 } }
-            ],
-            next: 'q5'
+            ]
         },
 
         // Readiness branches
