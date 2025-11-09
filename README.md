@@ -5,9 +5,10 @@ An intelligent, adaptive quiz designed to help people who aren't sure what they 
 ## Features
 
 ### 🎯 Intelligent Adaptive Logic
+- Optional personality framework questions (MBTI, Enneagram, Love Languages, Attachment Style)
 - Questions adapt based on your answers
 - Branching logic explores patterns and contradictions
-- 20-30 questions that dig deep into your dating psychology
+- 24-34 questions that dig deep into your dating psychology and personality
 
 ### 🧠 Comprehensive Analysis
 The quiz analyzes multiple dimensions:
@@ -22,6 +23,7 @@ The quiz analyzes multiple dimensions:
 ### 📊 Visual Results Dashboard
 After completion, you receive:
 - **Your Dater Type** - A personalized profile of how you approach dating
+- **Personality Framework Insights** - How your MBTI, Enneagram, Love Language, and Attachment Style influence your dating (if provided)
 - **What You're Looking For** - Deep insights into your actual desires
 - **Relationship Readiness Score** - Honest assessment with strengths & growth areas
 - **Core Values** - What truly matters to you in relationships
@@ -51,6 +53,11 @@ After completion, you receive:
 ## Question Categories
 
 The quiz explores:
+- **Personality Frameworks** (Optional)
+  - Myers-Briggs Type Indicator (MBTI) - All 16 types
+  - Enneagram - Types 1-9
+  - Love Languages - Words, Time, Touch, Service, Gifts
+  - Attachment Style - Secure, Anxious, Avoidant, Fearful-Avoidant
 - Your dating history and patterns
 - Emotional availability and vulnerability
 - Communication preferences

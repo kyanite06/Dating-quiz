@@ -371,6 +371,36 @@ body {
     left: 0;
 }
 
+/* Personality Insights Section */
+.personality-insights-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.personality-insight-card {
+    border-left: 4px solid var(--primary-color);
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.insight-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.insight-icon-large {
+    font-size: 2.5rem;
+}
+
+.personality-insight-content {
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
 /* Insights Grid */
 .insights-grid {
     display: grid;

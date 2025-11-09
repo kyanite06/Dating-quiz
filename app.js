@@ -13,11 +13,12 @@ class DatingQuizApp {
         // Initialize quiz
         this.currentQuestionIndex = 0;
         this.responses = [];
-        this.questionQueue = [...QUESTIONS.start];
+        // Start with personality framework questions, then dating questions
+        this.questionQueue = [...QUESTIONS.personality, ...QUESTIONS.start];
         this.askedQuestions.clear();
 
         // Calculate estimated total (will adapt)
-        this.totalQuestions = QUESTIONS.start.length + QUESTIONS.core.length + 5; // adaptive questions
+        this.totalQuestions = QUESTIONS.personality.length + QUESTIONS.start.length + QUESTIONS.core.length + 5; // adaptive questions
 
         // Show quiz screen
         this.showScreen('quiz-screen');
@@ -198,6 +199,20 @@ class DatingQuizApp {
                 </div>
             </div>
         `;
+
+        // Render personality insights
+        if (profile.personalityInsights && profile.personalityInsights.length > 0) {
+            const personalitySection = document.getElementById('personality-insights-section');
+            personalitySection.innerHTML = profile.personalityInsights.map(insight => `
+                <div class="result-card personality-insight-card">
+                    <div class="insight-header">
+                        <span class="insight-icon-large">${insight.icon}</span>
+                        <h3>${insight.title}</h3>
+                    </div>
+                    <p class="personality-insight-content">${insight.content}</p>
+                </div>
+            `).join('');
+        }
 
         // Render what they're looking for
         document.getElementById('looking-for-content').innerHTML = profile.lookingFor.map(item => `

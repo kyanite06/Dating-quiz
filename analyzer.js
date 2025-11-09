@@ -21,8 +21,39 @@ class DatingAnalyzer {
         return scores;
     }
 
+    extractPersonalityData() {
+        const personality = {
+            mbti: null,
+            enneagram: null,
+            loveLanguage: null,
+            attachment: null
+        };
+
+        this.responses.forEach(response => {
+            if (response.answer) {
+                if (response.answer.mbti && response.answer.mbti !== null) {
+                    personality.mbti = response.answer.mbti;
+                }
+                if (response.answer.enneagram && response.answer.enneagram !== null) {
+                    personality.enneagram = response.answer.enneagram;
+                }
+                if (response.answer.loveLanguage && response.answer.loveLanguage !== null) {
+                    personality.loveLanguage = response.answer.loveLanguage;
+                }
+                if (response.answer.attachment && response.answer.attachment !== null) {
+                    personality.attachment = response.answer.attachment;
+                }
+            }
+        });
+
+        return personality;
+    }
+
     buildProfile() {
+        const personality = this.extractPersonalityData();
+
         return {
+            personality: personality,
             daterType: this.determineDaterType(),
             lookingFor: this.determineLookingFor(),
             readiness: this.assessReadiness(),
@@ -32,7 +63,8 @@ class DatingAnalyzer {
             bioSuggestions: this.generateBioSuggestions(),
             redFlags: this.identifyRedFlags(),
             greenFlags: this.identifyGreenFlags(),
-            actionSteps: this.generateActionSteps()
+            actionSteps: this.generateActionSteps(),
+            personalityInsights: this.generatePersonalityInsights(personality)
         };
     }
 
@@ -662,6 +694,102 @@ class DatingAnalyzer {
         }
 
         return steps.slice(0, 4);
+    }
+
+    generatePersonalityInsights(personality) {
+        const insights = [];
+
+        // MBTI insights for dating
+        if (personality.mbti) {
+            const mbtiInsights = {
+                'INTJ': 'As an INTJ, you value intellectual connection and independence. Look for someone who can engage in deep conversations and respects your need for alone time.',
+                'INTP': 'As an INTP, you need mental stimulation and personal space. You\'re attracted to authenticity and independence in a partner.',
+                'ENTJ': 'As an ENTJ, you appreciate ambition and directness. You need a partner who can match your energy and communicate honestly.',
+                'ENTP': 'As an ENTP, you crave intellectual debate and novelty. Look for someone who can keep up with your ideas and loves exploration.',
+                'INFJ': 'As an INFJ, you seek deep emotional connection and shared values. You need someone who appreciates your depth and intuition.',
+                'INFP': 'As an INFP, authenticity and emotional depth are everything. You need a partner who values your idealism and creative nature.',
+                'ENFJ': 'As an ENFJ, you\'re naturally supportive and seek harmony. Look for someone who appreciates your warmth and can reciprocate emotional support.',
+                'ENFP': 'As an ENFP, you bring enthusiasm and creativity. You need someone who can appreciate your spontaneity while providing some grounding.',
+                'ISTJ': 'As an ISTJ, you value reliability and traditional commitment. Look for someone who appreciates your loyalty and shares your practical approach.',
+                'ISFJ': 'As an ISFJ, you\'re caring and devoted. You need a partner who values your supportive nature and won\'t take advantage of it.',
+                'ESTJ': 'As an ESTJ, you appreciate structure and directness. Look for someone organized who can communicate clearly about expectations.',
+                'ESFJ': 'As an ESFJ, you thrive on connection and harmony. You need someone who values your social nature and reciprocates your care.',
+                'ISTP': 'As an ISTP, you need independence and hands-on experiences. Look for someone who respects your autonomy and shares your adventurous side.',
+                'ISFP': 'As an ISFP, you live in the present and value authenticity. You need a partner who appreciates your artistic nature and spontaneity.',
+                'ESTP': 'As an ESTP, you love action and excitement. Look for someone who can match your energy and isn\'t afraid of spontaneous adventures.',
+                'ESFP': 'As an ESFP, you bring fun and warmth. You need someone who appreciates your social nature and can join you in enjoying life.'
+            };
+
+            if (mbtiInsights[personality.mbti]) {
+                insights.push({
+                    title: 'Your Personality Type in Dating',
+                    content: mbtiInsights[personality.mbti],
+                    icon: '🧩'
+                });
+            }
+        }
+
+        // Enneagram insights
+        if (personality.enneagram) {
+            const enneagramInsights = {
+                1: 'Type 1s need a partner who appreciates your integrity and high standards without making you feel judged. Look for someone who helps you relax perfectionist tendencies.',
+                2: 'Type 2s should find someone who genuinely values your care but also encourages you to voice your own needs. Avoid partners who only take.',
+                3: 'Type 3s need a partner who loves you for who you are, not what you achieve. Look for someone who helps you slow down and be authentic.',
+                4: 'Type 4s crave deep emotional connection and authenticity. Find someone who appreciates your depth without trying to "fix" your feelings.',
+                5: 'Type 5s need a partner who respects your need for independence and mental space. Look for someone intellectually curious who won\'t demand constant emotional expression.',
+                6: 'Type 6s benefit from a stable, reliable partner who provides security. Look for someone consistent who won\'t trigger your anxiety patterns.',
+                7: 'Type 7s should find a partner who can match your enthusiasm while gently grounding you. Look for someone who shares your love of experience.',
+                8: 'Type 8s need a partner who won\'t be intimidated by your intensity. Look for someone strong enough to challenge you but tender enough to soften you.',
+                9: 'Type 9s need someone who helps you voice your needs and won\'t let you fade into the background. Look for a partner who values your peace-keeping nature without exploiting it.'
+            };
+
+            if (enneagramInsights[personality.enneagram]) {
+                insights.push({
+                    title: 'Your Enneagram in Relationships',
+                    content: enneagramInsights[personality.enneagram],
+                    icon: '⭐'
+                });
+            }
+        }
+
+        // Love Language insights
+        if (personality.loveLanguage) {
+            const loveLanguageInsights = {
+                'words': 'Your primary Love Language is Words of Affirmation. You need a partner who can verbally express their feelings and appreciation. Make sure to communicate this need early—not everyone naturally speaks this language.',
+                'time': 'Your primary Love Language is Quality Time. You need undivided attention and meaningful presence. Look for someone who values being fully present, not just physically there.',
+                'touch': 'Your primary Love Language is Physical Touch. Physical affection is how you feel connected. You need a partner who is naturally affectionate and comfortable with physical intimacy.',
+                'service': 'Your primary Love Language is Acts of Service. You feel loved through actions, not just words. Look for someone who shows up and follows through on commitments.',
+                'gifts': 'Your primary Love Language is Receiving Gifts. Thoughtful gestures matter to you. You need a partner who understands that it\'s the thought and symbolism, not the price tag.'
+            };
+
+            if (loveLanguageInsights[personality.loveLanguage]) {
+                insights.push({
+                    title: 'How You Give and Receive Love',
+                    content: loveLanguageInsights[personality.loveLanguage],
+                    icon: '💝'
+                });
+            }
+        }
+
+        // Attachment style insights
+        if (personality.attachment) {
+            const attachmentInsights = {
+                'secure': 'Secure attachment is your superpower in dating. You\'re comfortable with both intimacy and independence. Use this to set healthy relationship patterns from the start.',
+                'anxious': 'Anxious attachment means you may need more reassurance in relationships. Look for a secure or earned-secure partner who can provide consistency. Work on self-soothing techniques when anxiety hits.',
+                'avoidant': 'Avoidant attachment means you may pull away when things get close. Look for a patient partner, but also work on recognizing when you\'re distancing as a defense mechanism.',
+                'fearful': 'Fearful-avoidant attachment can feel like wanting closeness and fearing it simultaneously. You need a very patient, secure partner. Consider therapy to work through these patterns.'
+            };
+
+            if (attachmentInsights[personality.attachment]) {
+                insights.push({
+                    title: 'Your Attachment Pattern',
+                    content: attachmentInsights[personality.attachment],
+                    icon: '🔗'
+                });
+            }
+        }
+
+        return insights;
     }
 
     shuffleArray(array) {

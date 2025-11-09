@@ -1,5 +1,83 @@
 // Comprehensive adaptive question bank
 const QUESTIONS = {
+    // Personality framework questions - optional but helpful
+    personality: [
+        {
+            id: 'p1',
+            text: 'Do you know your Myers-Briggs (MBTI) personality type?',
+            context: 'If you\'re not sure, you can skip this. Examples: INFP, ENTJ, ISFJ, etc.',
+            type: 'single',
+            answers: [
+                { text: 'INTJ - The Architect', value: 'INTJ', scores: { analytical: 2, independence: 2, strategic: 1 }, mbti: 'INTJ' },
+                { text: 'INTP - The Logician', value: 'INTP', scores: { analytical: 2, independence: 1, intellectual: 2 }, mbti: 'INTP' },
+                { text: 'ENTJ - The Commander', value: 'ENTJ', scores: { assertiveness: 2, ambition: 2, directness: 2 }, mbti: 'ENTJ' },
+                { text: 'ENTP - The Debater', value: 'ENTP', scores: { intellectual: 2, spontaneity: 1, adventurousness: 1 }, mbti: 'ENTP' },
+                { text: 'INFJ - The Advocate', value: 'INFJ', scores: { emotional_depth: 2, empathy: 2, idealistic: 2 }, mbti: 'INFJ' },
+                { text: 'INFP - The Mediator', value: 'INFP', scores: { emotional_depth: 2, authenticity: 2, idealistic: 2 }, mbti: 'INFP' },
+                { text: 'ENFJ - The Protagonist', value: 'ENFJ', scores: { empathy: 2, extroversion: 2, supportive: 2 }, mbti: 'ENFJ' },
+                { text: 'ENFP - The Campaigner', value: 'ENFP', scores: { extroversion: 2, spontaneity: 2, enthusiasm: 2 }, mbti: 'ENFP' },
+                { text: 'ISTJ - The Logistician', value: 'ISTJ', scores: { stability: 2, reliability: 2, structured: 2 }, mbti: 'ISTJ' },
+                { text: 'ISFJ - The Defender', value: 'ISFJ', scores: { loyalty: 2, supportive: 2, stability: 2 }, mbti: 'ISFJ' },
+                { text: 'ESTJ - The Executive', value: 'ESTJ', scores: { assertiveness: 2, organized: 2, directness: 2 }, mbti: 'ESTJ' },
+                { text: 'ESFJ - The Consul', value: 'ESFJ', scores: { extroversion: 2, supportive: 2, harmony: 2 }, mbti: 'ESFJ' },
+                { text: 'ISTP - The Virtuoso', value: 'ISTP', scores: { independence: 2, spontaneity: 1, practical: 2 }, mbti: 'ISTP' },
+                { text: 'ISFP - The Adventurer', value: 'ISFP', scores: { spontaneity: 2, artistic: 1, present_focused: 2 }, mbti: 'ISFP' },
+                { text: 'ESTP - The Entrepreneur', value: 'ESTP', scores: { extroversion: 2, spontaneity: 2, adventurousness: 2 }, mbti: 'ESTP' },
+                { text: 'ESFP - The Entertainer', value: 'ESFP', scores: { extroversion: 2, spontaneity: 2, playfulness: 2 }, mbti: 'ESFP' },
+                { text: 'Not sure / Don\'t know', value: 'unknown', scores: {}, mbti: null }
+            ],
+            next: 'p2'
+        },
+        {
+            id: 'p2',
+            text: 'How about your Enneagram type?',
+            context: 'Again, totally fine to skip if you don\'t know.',
+            type: 'single',
+            answers: [
+                { text: 'Type 1 - The Perfectionist', value: 'enneagram_1', scores: { standards: 2, organized: 1, idealistic: 1 }, enneagram: 1 },
+                { text: 'Type 2 - The Helper', value: 'enneagram_2', scores: { empathy: 2, supportive: 2, connection_need: 1 }, enneagram: 2 },
+                { text: 'Type 3 - The Achiever', value: 'enneagram_3', scores: { ambition: 2, achievement_oriented: 2, image_conscious: 1 }, enneagram: 3 },
+                { text: 'Type 4 - The Individualist', value: 'enneagram_4', scores: { emotional_depth: 2, authenticity: 2, creativity: 2 }, enneagram: 4 },
+                { text: 'Type 5 - The Investigator', value: 'enneagram_5', scores: { analytical: 2, independence: 2, intellectual: 2 }, enneagram: 5 },
+                { text: 'Type 6 - The Loyalist', value: 'enneagram_6', scores: { loyalty: 2, security_need: 2, cautious: 1 }, enneagram: 6 },
+                { text: 'Type 7 - The Enthusiast', value: 'enneagram_7', scores: { adventurousness: 2, spontaneity: 2, optimistic: 2 }, enneagram: 7 },
+                { text: 'Type 8 - The Challenger', value: 'enneagram_8', scores: { assertiveness: 2, independence: 2, directness: 2 }, enneagram: 8 },
+                { text: 'Type 9 - The Peacemaker', value: 'enneagram_9', scores: { harmony: 2, conflict_avoidance: 2, adaptability: 1 }, enneagram: 9 },
+                { text: 'Not sure / Don\'t know', value: 'unknown', scores: {}, enneagram: null }
+            ],
+            next: 'p3'
+        },
+        {
+            id: 'p3',
+            text: 'What\'s your primary Love Language?',
+            context: 'How do you prefer to give and receive love?',
+            type: 'single',
+            answers: [
+                { text: 'Words of Affirmation', value: 'words', scores: { verbal_affirmation_need: 2, communication_priority: 1 }, loveLanguage: 'words' },
+                { text: 'Quality Time', value: 'time', scores: { togetherness_need: 2, presence_priority: 2 }, loveLanguage: 'time' },
+                { text: 'Physical Touch', value: 'touch', scores: { physical_importance: 2, affection_need: 2 }, loveLanguage: 'touch' },
+                { text: 'Acts of Service', value: 'service', scores: { practical_support: 2, actions_over_words: 2 }, loveLanguage: 'service' },
+                { text: 'Receiving Gifts', value: 'gifts', scores: { thoughtfulness_priority: 2, symbolic_gestures: 1 }, loveLanguage: 'gifts' },
+                { text: 'Not sure / Don\'t know', value: 'unknown', scores: {}, loveLanguage: null }
+            ],
+            next: 'p4'
+        },
+        {
+            id: 'p4',
+            text: 'If you know your attachment style, what is it?',
+            context: 'This is how you typically behave in close relationships.',
+            type: 'single',
+            answers: [
+                { text: 'Secure - I\'m comfortable with intimacy and independence', value: 'secure', scores: { secure_attachment: 3, emotional_readiness: 2 }, attachment: 'secure' },
+                { text: 'Anxious - I worry about relationships and need reassurance', value: 'anxious', scores: { attachment_anxiety: 3, connection_need: 2 }, attachment: 'anxious' },
+                { text: 'Avoidant - I value independence and can be uncomfortable with closeness', value: 'avoidant', scores: { avoidance: 3, independence: 2 }, attachment: 'avoidant' },
+                { text: 'Fearful-Avoidant - I want closeness but also fear it', value: 'fearful', scores: { avoidance: 2, attachment_anxiety: 2, vulnerability_fear: 2 }, attachment: 'fearful' },
+                { text: 'Not sure / Don\'t know', value: 'unknown', scores: {}, attachment: null }
+            ],
+            next: 'q1'
+        }
+    ],
+
     // Starting questions - everyone gets these
     start: [
         {
