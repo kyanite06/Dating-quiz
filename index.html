@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Self-Discovery Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1>Discover Your Dating Truth</h1>
+                <p class="subtitle">An adaptive quiz to help you understand what you actually want in dating—not what you think you should want.</p>
+
+                <div class="info-box">
+                    <h3>What to expect:</h3>
+                    <ul>
+                        <li>20-30 questions that adapt based on your answers</li>
+                        <li>Deep exploration of your values, needs, and readiness</li>
+                        <li>A personalized dating profile dashboard</li>
+                        <li>Natural bio recommendations you can actually use</li>
+                        <li>Insights about what you're truly ready for</li>
+                    </ul>
+                    <p class="time-estimate">Takes about 10-15 minutes. Be honest—there are no wrong answers.</p>
+                </div>
+
+                <button class="btn-primary" onclick="app.startQuiz()">Begin Your Journey</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p class="progress-text"><span id="current-q">1</span> of <span id="total-q">25</span></p>
+            </div>
+
+            <div class="quiz-content">
+                <div id="question-container">
+                    <h2 id="question-text" class="question-text"></h2>
+                    <p id="question-context" class="question-context"></p>
+                    <div id="answers-container" class="answers-container"></div>
+                </div>
+
+                <div class="navigation">
+                    <button id="back-btn" class="btn-secondary" onclick="app.previousQuestion()">Back</button>
+                    <button id="skip-btn" class="btn-text" onclick="app.skipQuestion()">Skip</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-header">
+                <h1>Your Dating Profile</h1>
+                <p class="results-subtitle">Here's what we discovered about you</p>
+            </div>
+
+            <div class="results-content">
+                <!-- Dater Type Card -->
+                <div class="result-card dater-type-card">
+                    <div class="card-icon">✨</div>
+                    <h2>Your Dater Type</h2>
+                    <h3 id="dater-type" class="dater-type-name"></h3>
+                    <p id="dater-type-description" class="dater-type-description"></p>
+                </div>
+
+                <!-- Personality Framework Insights -->
+                <div id="personality-insights-section" class="personality-insights-section"></div>
+
+                <!-- Core Insights Grid -->
+                <div class="insights-grid">
+                    <div class="result-card">
+                        <h3>What You're Actually Looking For</h3>
+                        <div id="looking-for-content"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Your Relationship Readiness</h3>
+                        <div id="readiness-content"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Your Core Values</h3>
+                        <div id="values-content"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Your Communication Style</h3>
+                        <div id="communication-content"></div>
+                    </div>
+                </div>
+
+                <!-- Visual Dimensions -->
+                <div class="result-card dimensions-card">
+                    <h3>Your Dating Dimensions</h3>
+                    <div id="dimensions-chart" class="dimensions-chart"></div>
+                </div>
+
+                <!-- Bio Recommendations -->
+                <div class="result-card bio-card">
+                    <h3>Bio Recommendations</h3>
+                    <p class="bio-intro">Based on your profile, here are some authentic lines you could use:</p>
+                    <div id="bio-suggestions" class="bio-suggestions"></div>
+                </div>
+
+                <!-- Red Flags & Green Flags -->
+                <div class="flags-section">
+                    <div class="result-card">
+                        <h3>🚩 Watch Out For</h3>
+                        <ul id="red-flags" class="flags-list"></ul>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>🟢 Look For</h3>
+                        <ul id="green-flags" class="flags-list"></ul>
+                    </div>
+                </div>
+
+                <!-- Action Steps -->
+                <div class="result-card action-card">
+                    <h3>Next Steps</h3>
+                    <div id="action-steps" class="action-steps"></div>
+                </div>
+
+                <div class="restart-section">
+                    <button class="btn-secondary" onclick="app.restartQuiz()">Take Quiz Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="analyzer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
