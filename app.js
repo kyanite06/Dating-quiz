@@ -84,6 +84,11 @@ class DatingQuizApp {
     }
 
     selectAnswer(answer, question) {
+        console.log('=== selectAnswer ===');
+        console.log('Current question:', question.id);
+        console.log('Current index:', this.currentQuestionIndex);
+        console.log('Queue length:', this.questionQueue.length);
+
         // Store response
         this.responses.push({
             questionId: question.id,
@@ -95,17 +100,20 @@ class DatingQuizApp {
         if (question.followUp && question.followUp[answer.value]) {
             const followUpId = question.followUp[answer.value];
             const followUpQuestion = QUESTIONS.branches[followUpId];
+            console.log('Has followUp:', followUpId);
 
             if (followUpQuestion && !this.askedQuestions.has(followUpQuestion.id)) {
                 // Insert follow-up question next
                 this.questionQueue.splice(this.currentQuestionIndex + 1, 0, followUpQuestion);
                 this.totalQuestions++;
+                console.log('Inserted followUp question:', followUpQuestion.id);
             }
         }
         // Handle next property (for sequential questions)
         else if (question.next) {
             const nextId = question.next;
             let nextQuestion = null;
+            console.log('Has next property:', nextId);
 
             // Look for next question in all sections
             if (nextId === 'q1') {
@@ -113,12 +121,15 @@ class DatingQuizApp {
             } else if (nextId.startsWith('q') && !nextId.includes('_')) {
                 // It's a start question (q2, q3, q4)
                 nextQuestion = QUESTIONS.start.find(q => q.id === nextId);
+                console.log('Looking in start questions for:', nextId, 'Found:', !!nextQuestion);
             } else if (nextId.startsWith('q') && nextId.includes('_')) {
                 // It's a branch question
                 nextQuestion = QUESTIONS.branches[nextId];
+                console.log('Looking in branches for:', nextId, 'Found:', !!nextQuestion);
             } else if (nextId === 'adaptive') {
                 // Add adaptive questions
                 this.addAdaptiveQuestions();
+                console.log('Adding adaptive questions');
             } else if (nextId === 'final_questions') {
                 // Add final questions
                 QUESTIONS.final.forEach(q => {
@@ -126,20 +137,31 @@ class DatingQuizApp {
                         this.questionQueue.push(q);
                     }
                 });
+                console.log('Adding final questions');
             } else {
                 // Try to find in core questions
                 nextQuestion = QUESTIONS.core.find(q => q.id === nextId);
+                console.log('Looking in core questions for:', nextId, 'Found:', !!nextQuestion);
             }
 
             // If we found a next question and haven't asked it, add it to queue
             if (nextQuestion && !this.askedQuestions.has(nextQuestion.id)) {
                 // Check if it's already in the queue ahead
                 const alreadyInQueue = this.questionQueue.slice(this.currentQuestionIndex + 1).some(q => q.id === nextQuestion.id);
+                console.log('Next question already in queue?', alreadyInQueue);
                 if (!alreadyInQueue) {
                     this.questionQueue.splice(this.currentQuestionIndex + 1, 0, nextQuestion);
+                    console.log('Inserted next question:', nextQuestion.id);
                 }
+            } else {
+                console.log('Did not insert - already asked or not found');
             }
+        } else {
+            console.log('No followUp or next property');
         }
+
+        console.log('Queue after processing:', this.questionQueue.map(q => q.id));
+        console.log('===================');
 
         // Move to next question
         this.nextQuestion();
@@ -147,11 +169,16 @@ class DatingQuizApp {
 
     nextQuestion() {
         this.currentQuestionIndex++;
+        console.log('=== nextQuestion ===');
+        console.log('New index:', this.currentQuestionIndex);
+        console.log('Queue length:', this.questionQueue.length);
 
         // Check if we need to add more questions
         if (this.currentQuestionIndex >= this.questionQueue.length) {
+            console.log('Reached end of queue, adding more questions');
             // Check which section we're in
             if (this.askedQuestions.size < QUESTIONS.start.length + 5) {
+                console.log('Adding core questions');
                 // Still in early stages, add core questions
                 QUESTIONS.core.forEach(q => {
                     if (!this.askedQuestions.has(q.id)) {
@@ -159,9 +186,11 @@ class DatingQuizApp {
                     }
                 });
             } else if (this.responses.length >= 15 && this.responses.length < 25) {
+                console.log('Adding adaptive questions');
                 // Mid-quiz, add adaptive questions
                 this.addAdaptiveQuestions();
             } else {
+                console.log('Adding final questions');
                 // Add final questions
                 QUESTIONS.final.forEach(q => {
                     if (!this.askedQuestions.has(q.id)) {
@@ -173,8 +202,10 @@ class DatingQuizApp {
 
         // Render next question or show results
         if (this.currentQuestionIndex < this.questionQueue.length) {
+            console.log('Rendering question at index', this.currentQuestionIndex);
             this.renderQuestion();
         } else {
+            console.log('No more questions, showing results');
             this.showResults();
         }
     }
