@@ -116,17 +116,7 @@ class DatingQuizApp {
             console.log('Has next property:', nextId);
 
             // Look for next question in all sections
-            if (nextId === 'q1') {
-                nextQuestion = QUESTIONS.start[0];
-            } else if (nextId.startsWith('q') && !nextId.includes('_')) {
-                // It's a start question (q2, q3, q4)
-                nextQuestion = QUESTIONS.start.find(q => q.id === nextId);
-                console.log('Looking in start questions for:', nextId, 'Found:', !!nextQuestion);
-            } else if (nextId.startsWith('q') && nextId.includes('_')) {
-                // It's a branch question
-                nextQuestion = QUESTIONS.branches[nextId];
-                console.log('Looking in branches for:', nextId, 'Found:', !!nextQuestion);
-            } else if (nextId === 'adaptive') {
+            if (nextId === 'adaptive') {
                 // Add adaptive questions
                 this.addAdaptiveQuestions();
                 console.log('Adding adaptive questions');
@@ -138,10 +128,17 @@ class DatingQuizApp {
                     }
                 });
                 console.log('Adding final questions');
-            } else {
-                // Try to find in core questions
-                nextQuestion = QUESTIONS.core.find(q => q.id === nextId);
-                console.log('Looking in core questions for:', nextId, 'Found:', !!nextQuestion);
+            } else if (nextId.includes('_')) {
+                // It's a branch question (has underscore)
+                nextQuestion = QUESTIONS.branches[nextId];
+                console.log('Looking in branches for:', nextId, 'Found:', !!nextQuestion);
+            } else if (nextId.startsWith('q')) {
+                // It's a regular question - search in order: start, then core
+                nextQuestion = QUESTIONS.start.find(q => q.id === nextId);
+                if (!nextQuestion) {
+                    nextQuestion = QUESTIONS.core.find(q => q.id === nextId);
+                }
+                console.log('Looking for', nextId, 'Found:', !!nextQuestion);
             }
 
             // If we found a next question and haven't asked it, add it to queue
